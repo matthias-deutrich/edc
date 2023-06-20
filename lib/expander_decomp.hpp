@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "cut_matching.hpp"
 #include "datastructures/undirected_graph.hpp"
