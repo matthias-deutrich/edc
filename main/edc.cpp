@@ -3,11 +3,9 @@
 #include <glog/logging.h>
 #include <glog/stl_logging.h>
 #include <iostream>
-#include <numeric>
 #include <vector>
 
 #include "lib/cut_matching.hpp"
-#include "lib/datastructures/undirected_graph.hpp"
 #include "lib/expander_decomp.hpp"
 #include "util.hpp"
 
@@ -64,7 +62,7 @@ int main(int argc, char *argv[]) {
       .samplePotential = FLAGS_sample_potential,
       .balancedCutStrategy = FLAGS_balanced_cut_strategy};
 
-  ExpanderDecomposition::Solver solver(move(g), FLAGS_phi, randomGen.get(),
+  ExpanderDecomposition::Solver solver(std::move(g), FLAGS_phi, randomGen.get(),
                                        params);
   auto partitions = solver.getPartition();
   auto conductances = solver.getConductance();
