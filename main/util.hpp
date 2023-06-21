@@ -23,16 +23,16 @@ std::unique_ptr<std::mt19937> configureRandomness(unsigned int seed) {
    Otherwise assume edges are given as 'm' vertex pairs. Duplicate edges are
    ignored.
  */
-std::unique_ptr<Undirected::Graph> readGraph(bool chaco_format) {
+std::unique_ptr<Undirected::Graph> readGraph(std::istream &in_stream, bool chaco_format) {
   int n, m;
-  std::cin >> n >> m;
+  in_stream >> n >> m;
 
   std::vector<Undirected::Edge> es;
   if (chaco_format) {
-    std::cin.ignore();
+    in_stream.ignore();
     for (int u = 0; u < n; ++u) {
       std::string line;
-      std::getline(std::cin, line);
+      std::getline(in_stream, line);
       std::stringstream ss(line);
 
       int v;
@@ -44,7 +44,7 @@ std::unique_ptr<Undirected::Graph> readGraph(bool chaco_format) {
     std::set<std::pair<int, int>> seen;
     for (int i = 0; i < m; ++i) {
       int u, v;
-      std::cin >> u >> v;
+      in_stream >> u >> v;
       if (u > v)
         std::swap(u, v);
       if (seen.find({u, v}) == seen.end()) {

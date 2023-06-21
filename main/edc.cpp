@@ -4,6 +4,7 @@
 #include <glog/stl_logging.h>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include "lib/cut_matching.hpp"
 #include "lib/expander_decomp.hpp"
@@ -37,7 +38,9 @@ DEFINE_bool(sample_potential, false,
             "True if the potential function should be sampled.");
 DEFINE_bool(balanced_cut_strategy, true,
             "Propose perfectly balanced cuts in the cut-matching game. This "
-            "results in faster convergance of the potential function.");
+            "results in faster convergence of the potential function.");
+DEFINE_string(input_file, "",
+              "Input graph will be read from this file instead of the command line.");
 
 int main(int argc, char *argv[]) {
   google::InitGoogleLogging(argv[0]);
@@ -48,7 +51,15 @@ int main(int argc, char *argv[]) {
   auto randomGen = configureRandomness(FLAGS_seed);
 
   VLOG(1) << "Reading input.";
-  auto g = readGraph(FLAGS_chaco);
+  std::unique_ptr<Undirected::Graph> g;
+  if (FLAGS_input_file.empty()) {
+    g = readGraph(std::cin, FLAGS_chaco);
+  } else {
+    ifstream in_stream;
+    in_stream.open(FLAGS_input_file);
+    g = readGraph(in_stream, FLAGS_chaco);
+    in_stream.close();
+  }
   VLOG(1) << "Finished reading input.";
 
   const int default_t1 = FLAGS_balanced_cut_strategy ? 22 : 142;

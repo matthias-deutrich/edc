@@ -1,11 +1,11 @@
-add_executable(edc edc.cpp)
+add_executable(edc edc.cpp util.hpp)
 target_include_directories(edc PRIVATE ..)
 target_link_libraries(edc PRIVATE edc_lib gflags glog)
 
-add_executable(edc_bench edc_bench.cpp)
+add_executable(edc_bench edc_bench.cpp util.hpp)
 target_include_directories(edc_bench PRIVATE ..)
 target_link_libraries(edc_bench PRIVATE edc_lib gflags glog)
 
-add_executable(edc_cut edc_cut.cpp)
+add_executable(edc_cut edc_cut.cpp util.hpp)
 target_include_directories(edc_cut PRIVATE ..)
 target_link_libraries(edc_cut PRIVATE edc_lib gflags glog)
