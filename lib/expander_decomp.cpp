@@ -74,7 +74,11 @@ void Solver::compute() {
   const auto &components = flowGraph->connectedComponents();
 
   if (components.size() > 1) {
-    VLOG(1) << "Found " << components.size() << " connected components.";
+    std::stringstream sizes_stream;
+    for (const auto& comp : components) {
+      sizes_stream << comp.size() << " ";
+    }
+    VLOG(1) << "Found " << components.size() << " connected components. Component sizes: [ " << sizes_stream.str() << "]";
 
     for (auto &comp : components) {
       auto subComp =
