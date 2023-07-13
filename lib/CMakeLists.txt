@@ -13,6 +13,7 @@ target_sources(edc_lib
         datastructures/subset_graph.hpp
         datastructures/unit_flow.cpp
         datastructures/unit_flow.hpp
+        datastructures/graph/graph_interface.hpp
         cut_matching.cpp
         expander_decomp.cpp
         trimming.cpp
